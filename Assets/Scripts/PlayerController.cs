@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform aim;
     [SerializeField] Camera mainCamera;
     [SerializeField] Transform BulletPrefab;
+    [SerializeField] int health = 3;
 
     //***********************************
     //Unity methods
@@ -90,6 +91,15 @@ public class PlayerController : MonoBehaviour
         facingDirection = mainCamera.ScreenToWorldPoint(Input.mousePosition)-transform.position;
         //En este algoritmo se coje el vector2 y se le dice a unity que lo interprete como un vector3 y se normaliza (magnitud = 1)
         aim.position = transform.position + (Vector3)facingDirection.normalized;
+    }
+
+    public void ToTakeDamage()
+    {
+        health--;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     //********************************

@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     //Unity methods
     void Start()
     {
-        
+        Destroy(gameObject,5);
     }
 
     void Update()
@@ -21,5 +21,21 @@ public class Bullet : MonoBehaviour
     void ToMove()
     {
         transform.position += transform.right * Time.deltaTime * moveSpeed;
+    }
+
+    //Si toca al enemigo
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        ToDamageEnemy(collision);
+    }
+
+    void ToDamageEnemy(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            collision.GetComponent<PlayerController>().ToTakeDamage();
+        }
+        //En cuanto ocurra se destruira
+        Destroy(gameObject);
     }
 }
