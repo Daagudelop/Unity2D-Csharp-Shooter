@@ -7,11 +7,13 @@ public class Enemy : MonoBehaviour
     Transform player;
     [SerializeField] int health = 3;
     [SerializeField] float moveSpeed = 1;
+    GameObject[] spawnPoint;
+
     //***********************************
     //Unity methods
     void Start()
     {
-        player = GameObject.FindWithTag ("Player").transform;
+        ToSelectSpawnPoint();
     }
 
     void Update()
@@ -19,6 +21,32 @@ public class Enemy : MonoBehaviour
         FollowPlayer();
     }
     //***********************************
+
+    void ToSelectSpawnPoint()
+    {
+        ObjectRecolector();
+        SpawnPointSelector();
+    }
+
+    void ObjectRecolector()
+    {
+        //---------------------------
+        //Find the player
+        player = GameObject.FindWithTag ("Player").transform;
+        //Find the spawnpoints
+        spawnPoint = GameObject.FindGameObjectsWithTag("SpawnPoint");
+        //---------------------------
+    }
+
+    void SpawnPointSelector()
+    {
+        //Get the new position
+        int randomSpawnPoint = Random.Range(0, spawnPoint.Length);
+
+        //Asign the new position
+        transform.position = spawnPoint[randomSpawnPoint].transform.position;
+    }
+
     public void ToTakeDamageEnemy()
     {
         health--;

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemySpawnController : MonoBehaviour
 {
-    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] GameObject[] enemyPrefab;
+    [Range(1,10)][SerializeField] float spawnRate = 1;
 
     //********************************
     //Unity method
@@ -27,8 +28,17 @@ public class EnemySpawnController : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(3);
-            Instantiate(enemyPrefab);
+            yield return new WaitForSeconds(1/spawnRate);
+            float random = Random.Range(0.0f, 1.0f);
+            if (random < GameManager.Instance.difficulty * 0.1f)
+            {
+
+            Instantiate(enemyPrefab[0]);
+            }
+            else
+            {
+                Instantiate(enemyPrefab[1]);
+            }
         }
     }
 }

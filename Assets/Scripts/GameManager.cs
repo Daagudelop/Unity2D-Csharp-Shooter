@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance
         ;
 
-    [SerializeField]int time = 30;
+    public int time = 30;
+    public int difficulty = 1;
     //********************************
     //Unity method
     private void Awake()
